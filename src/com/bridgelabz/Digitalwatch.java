@@ -1,59 +1,20 @@
 package com.bridgelabz;
-import javax.swing.*;
-import java.awt.*;
-import java.text.*;
-import java.util.*;
-    public class Digitalwatch implements Runnable{
-        JFrame f;
-        Thread t=null;
-        int hours=0, minutes=0, seconds=0;
-        String timeString = "";
-        JButton b;
 
-        Digitalwatch(){
-            f=new JFrame();
+import java.util.Scanner;
 
-            t = new Thread(this);
-            t.start();
+public class StopWatch {
 
-            b=new JButton();
-            b.setBounds(100,100,100,50);
+	public static void main(String[] args) {
+		System.out.println("Enter any character and press Enter to start the stop watch");
+		Scanner sc =new Scanner(System.in);
+		char start=sc.next().charAt(0);
+		long startch =System.currentTimeMillis();
+		System.out.println("Enter any character and press Enter to stop the stop watch");
+		Scanner sc1=new Scanner(System.in);
+		char stopch=sc1.next().charAt(0);
+		long stop =System.currentTimeMillis();
+		float timeElapsed =(float)(stop-start)/1000;
+		System.out.println("Time =" +timeElapsed + "Seconds");
+	}
 
-            f.add(b);
-            f.setSize(300,400);
-            f.setLayout(null);
-            f.setVisible(true);
-        }
-
-        public void run() {
-            try {
-                while (true) {
-
-                    Calendar cal = Calendar.getInstance();
-                    hours = cal.get( Calendar.HOUR_OF_DAY );
-                    if ( hours > 12 ) hours -= 12;
-                    minutes = cal.get( Calendar.MINUTE );
-                    seconds = cal.get( Calendar.SECOND );
-
-                    SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss");
-                    Date date = cal.getTime();
-                    timeString = formatter.format( date );
-
-                    printTime();
-
-                    t.sleep( 1000 );  // interval given in milliseconds
-                }
-            }
-            catch (Exception e) { }
-        }
-
-        public void printTime(){
-            b.setText(timeString);
-        }
-
-        public static void main(String[] args) {
-            new Digitalwatch();
-
-
-        }
 }
